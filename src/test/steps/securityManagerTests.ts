@@ -1,8 +1,6 @@
 import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber";
 
-import { expect } from "@playwright/test";
 import { fixture } from "../../hooks/pageFixture";
-import Assert from "../../helper/wrapper/assert";
 import securityManager from "../../pages/securityManager";
 import * as data from "../../helper/util/test-data/loginCredentials.json"
 
@@ -18,7 +16,6 @@ Given('User navigates to the security application', async function () {
 
 Given('User enter the username in security Manager', async function () {
     await securityManagerPage.enterUserName(data.userNameSecurity)
-
 });
 
 Given('User enter the password in security Manager', async function () {
@@ -38,7 +35,6 @@ When('Click Home link', async function () {
     await fixture.page.waitForLoadState();
     fixture.logger.info("Waiting for 2 seconds") 
 });
-
 
 When('Click on first panel type', async function () {
     await securityManagerPage.clickFirstPanel()
@@ -61,7 +57,6 @@ When('Click on contact button', async function () {
     const ExpectedSuccessMessage = "Contacts update successful. Please allow 2 business days for passcode changes to be applied to your system."
     await fixture.page.waitForLoadState();
     fixture.logger.info("Waiting for 2 seconds") 
-    // expect(OriginalMessage).toContain(ExpectedSuccessMessage);
     if (ExpectedSuccessMessage === OriginalMessage) {
         console.log("Contact details are updated");
       } else {
