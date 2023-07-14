@@ -12,22 +12,24 @@ export default class dgSecurity {
 
     private Elements = {
         userName: "//input[@id ='MainContent_LoginUser_UserName']",
-        passwordInput: "//input[@id ='MainContent_LoginUser_Password']",
-        loginBtn: "//input[@id ='MainContent_LoginUser_LoginButton']",
+        passwordInput: "//input[@id='MainContent_LoginUser_Password']",
+        loginBtn: "//input[@id='MainContent_LoginUser_LoginButton']",
         errorMessage: "alert",
         homeLink: "//a[text() ='Home']",
-        firstPanel: "//a[text() ='INTERFACE SECURITY SYSTEMS']",
-        CheckThirdCheckBox: "//input[@id = 'chkEdit3']",
-        phoneTextbox: "//div[@id='contMobiletb3']//input[@type='text']",
-        HomePhone: "//div[@id='contHometb3']//input[@type='text']",
-        passcode: "//div[@id = 'contPasscodetb3']/input[@type='text']",
-        updateButton: "//input[@id='btnContactUpdate']",
+        firstPanel: "//a[text() ='Test Panel - AGB Account (AGB0010)']",
+        addBlankrows: "//input[@title='Add Blank Rows based on selected count']",
+        yesProceedButton: "//button[text()='Yes, Proceed!']",
+        CodeToAssign041Edit:"(//tr[@title='041']//input)[1]",
+        phoneTextbox: "//div[@id='contMobiletb38']//input[1]",
+        HomePhone: "//div[@id='contHometb38']//input[1]",
+        passcode: "//div[@id='contPasscodetb38']//input[1]",
+        updateButton: "//input[@value='Update Contacts']",
         successMessage: "Contacts update successful. Please allow 2 business days for passcode changes to be applied to your system."
 
     }
 
     async navigateToLoginPage() {
-        await this.base.goto(process.env.BASEURLDG);
+        await this.base.goto(process.env.BASEURLSecurityManager);
 
 
     }
@@ -57,10 +59,12 @@ export default class dgSecurity {
         await this.base.waitAndClick(this.Elements.firstPanel);
     }
 
-    async editContactDetails() {
-        await this.page.locator(this.Elements.CheckThirdCheckBox).check();
-        await this.page.locator(this.Elements.phoneTextbox).fill(randomValuePhone.toString())
-        await this.page.locator(this.Elements.HomePhone).fill(randomValuePhone.toString())
+    async addBlankrows() {
+        await this.page.locator(this.Elements.addBlankrows).click();
+        await this.page.locator(this.Elements.yesProceedButton).click();
+        await this.page.locator(this.Elements.CodeToAssign041Edit).check();
+        await this.page.locator(this.Elements.phoneTextbox).fill("2505550199")
+        await this.page.locator(this.Elements.HomePhone).fill("2505550199")
         await this.page.locator(this.Elements.passcode).fill(randomValuePasscode.toString())
     }
 
