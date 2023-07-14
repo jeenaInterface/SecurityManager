@@ -1,0 +1,9 @@
+node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-result/
+/test-results/
+assets
+features
+@rerun.txt
