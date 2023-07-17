@@ -15,7 +15,7 @@ export default class Oracle {
         errorMessage: "alert",
         searchButton: "//a[@id='pt1:_UISgsnfsb']",
         searchBox: "Search",
-        textAccount: "Account: Interface Security Systems",
+        textAccount: "Account: Interface Security Systems_INT01N",
         profileTab: "//a[@id='_FOpt1:_FOr1:0:_FONSr2:0:_FOTsr1:0:pt1:r1:0:pt1:Profile::disAcr']",
         // profile_tab: page.get_by_role("link", name="Profile")
         apmEnabledCheckbox: "(//label[@class='x17h'])[2]",

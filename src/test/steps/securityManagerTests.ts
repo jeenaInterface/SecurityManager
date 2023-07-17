@@ -36,7 +36,7 @@ When('Click Home link', async function () {
     fixture.logger.info("Waiting for 2 seconds") 
 });
 
-When('Click on first panel type', async function () {
+When('Click on a test panel', async function () {
     await securityManagerPage.clickFirstPanel()
 });
 

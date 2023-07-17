@@ -1,5 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import PlaywrightWrapper from "../helper/wrapper/PlaywrightWrappers";
+import { fixture } from "../hooks/pageFixture";
 const { randomValuePhone } = require('../helper/util/test-data/randomdata');
 const { randomValuePasscode } = require('../helper/util/test-data/randomdata');
 
@@ -62,10 +63,16 @@ export default class dgSecurity {
     async addBlankrows() {
         await this.page.locator(this.Elements.addBlankrows).click();
         await this.page.locator(this.Elements.yesProceedButton).click();
+        await fixture.page.waitForLoadState();
+        fixture.logger.info("Waiting for 5 seconds")
+        await fixture.page.waitForTimeout(5000);
         await this.page.locator(this.Elements.CodeToAssign041Edit).check();
         await this.page.locator(this.Elements.phoneTextbox).fill("2505550199")
         await this.page.locator(this.Elements.HomePhone).fill("2505550199")
         await this.page.locator(this.Elements.passcode).fill(randomValuePasscode.toString())
+        await fixture.page.waitForLoadState();
+        fixture.logger.info("Waiting for 2 seconds")
+        await fixture.page.waitForTimeout(2000);
     }
 
     async clickupdateButton() {

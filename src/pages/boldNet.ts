@@ -1,5 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import PlaywrightWrapper from "../helper/wrapper/PlaywrightWrappers";
+import { fixture } from "../hooks/pageFixture";
 
 
 export default class boldNet {
@@ -22,7 +23,7 @@ export default class boldNet {
         OkayButtonInPopup: "//span[text()='Ok']",
         saveButtonOnTheTop: "(//md-icon[@md-font-icon='fa fa-save'])[1]",
         confirmCustomerCommentpopup: "//span[text()='Ok']",
-        searchOnContact: "//label[@for='input_267']/following-sibling::input[1]"
+        searchOnContact: "(//input[@ng-change='btCtrl.search()'])[1]"
 
     }
     async navigateToLoginPage() {
@@ -65,6 +66,9 @@ async clickOnContactMenu() {
 }
 
 async clickOnContact41() {
+    await fixture.page.waitForLoadState();
+    fixture.logger.info("Waiting for 2 seconds")
+    await fixture.page.waitForTimeout(5000);
     await this.base.waitAndClick(this.Elements.searchOnContact)
     await this.page.locator(this.Elements.searchOnContact).fill("41");
     await this.base.waitAndClick(this.Elements.CodeToAssign41);
@@ -88,5 +92,10 @@ async clickOnOKAYButton() {
 
 }
 
+async VerifynewContact()
+{
+    const visibleParameter = await this.page.locator(this.Elements.CodeToAssign41).isVisible();
+    return visibleParameter !== null;
+}
 
 }

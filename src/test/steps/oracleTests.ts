@@ -83,10 +83,10 @@ When('Check whether the SR is created', async function () {
     fixture.logger.info("Waiting for 2 seconds")
     await fixture.page.waitForTimeout(2000);
 
-    await oraclePage.clickOnAsceindingButton()
-    await fixture.page.waitForLoadState();
-    fixture.logger.info("Waiting for 2 seconds")
-    await fixture.page.waitForTimeout(2000)
+    // await oraclePage.clickOnAsceindingButton()
+    // await fixture.page.waitForLoadState();
+    // fixture.logger.info("Waiting for 2 seconds")
+    // await fixture.page.waitForTimeout(2000)
 
     const latesteddate = await oraclePage.latestCreatedDate()
     const currentDate = new Date();
@@ -98,7 +98,7 @@ When('Check whether the SR is created', async function () {
     console.log('formattedCreatedDate:', formattedCreatedDate); // Check the value of formattedCreatedDate  
 
     if (currentDateFormat === formattedCreatedDate) {
-        console.log("Contact details are updated in apm");
+        console.log("Contact details are updated in oracle");
     } else {
         throw new Error("No records created");
     }

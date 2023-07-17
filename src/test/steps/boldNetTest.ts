@@ -13,6 +13,9 @@ Given('User navigates to the BoldNet application', async function () {
     boldNetPage = new boldNet(fixture.page)
     await boldNetPage.navigateToLoginPage();
     fixture.logger.info("Navigated to the application")
+    await fixture.page.waitForLoadState();
+    fixture.logger.info("Waiting for 2 seconds")
+    await fixture.page.waitForTimeout(2000);
 })
 
 Given('User enter the username in BoldNet', async function () {
@@ -55,22 +58,53 @@ When('Click on contact menu', async function () {
     await boldNetPage.clickOnContactMenu()
 });
 
-When('select contact Code To Assign 041', async function () {
+When('Delete an account containing the text Code To Assign 041', async function () {
+    const IsVisible = await boldNetPage.VerifynewContact()
+    console.log("IsVisible",IsVisible)
+    if (IsVisible !== null)
+    {
     await boldNetPage.clickOnContact41()
-});
-
-When('Click on delete button', async function () {
     await boldNetPage.clickOnDeleteButton()
-});
-
-When('Click on okay button', async function () {
     await boldNetPage.clickOnOkayButton()
-});
-
-When('Click On save button on the top', async function () {
     await boldNetPage.clickOnSaveButton()
+    await boldNetPage.clickOnOKAYButton()
+    await fixture.page.waitForLoadState();
+    fixture.logger.info("Waiting for 2 seconds")
+    await fixture.page.waitForTimeout(5000);
+    }
+    else {
+        throw new Error("No entry is existing with the text 41");
+      }
 });
 
-When('Confirm customer comment pop up', async function () {
-    await boldNetPage.clickOnOKAYButton()
+// When('Click on delete button', async function () {
+//     await boldNetPage.clickOnDeleteButton()
+// });
+
+// When('Click on okay button', async function () {
+//     await boldNetPage.clickOnOkayButton()
+// });
+
+// When('Click On save button on the top', async function () {
+//     await boldNetPage.clickOnSaveButton()
+// });
+
+// When('Confirm customer comment pop up', async function () {
+//     await boldNetPage.clickOnOKAYButton()
+//     await fixture.page.waitForLoadState();
+//     fixture.logger.info("Waiting for 2 seconds")
+//     await fixture.page.waitForTimeout(5000);
+
+// });
+
+When('Verify new contact is created in BoldNet', async function () {
+    const IsVisible = await boldNetPage.VerifynewContact()
+    console.log("IsVisible",IsVisible)
+     if (IsVisible !== null)
+     {
+        console.log("Contact is created");
+    } else {
+      throw new Error("No record created");
+    }
+     
 });

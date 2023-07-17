@@ -59,7 +59,7 @@ When('Verify the contact details are inserted', async function () {
     const panel_type = await APM.panelType()
     console.log('innertextPanelType:', panel_type); // Check the value of innertextPanelType
     
-    const testPanelType = "AGA - 9998";
+    const testPanelType = "AGB - 10";
     if (currentDateFormat === formattedCreatedDate && panel_type === testPanelType) {
         console.log("Contact details are updated in apm");
       } else {
