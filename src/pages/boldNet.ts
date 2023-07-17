@@ -18,7 +18,7 @@ export default class boldNet {
         searchIcon: "//span[text()='Search']",
         searchResult: "//span[text()='AGB0010']",
         contactList: "(//span[contains(text(),'Contact List')])[1]/./..",
-        CodeToAssign41: "//span[contains(text(), 'Code To Assign 041')]",
+        CodeToAssign41: "(//span[contains(text(), 'Code To Assign 041')])[1]",
         contactDeleteButton: "//md-icon[@md-font-icon='fa-trash-o']",
         OkayButtonInPopup: "//span[text()='Ok']",
         saveButtonOnTheTop: "(//md-icon[@md-font-icon='fa fa-save'])[1]",
