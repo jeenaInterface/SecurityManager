@@ -8,6 +8,7 @@ import * as data from "../../helper/util/test-data/loginCredentials.json"
 setDefaultTimeout(60 * 1000 * 5)
 let securityManagerPage: securityManager
 
+
 Given('User navigates to the security application', async function () {
     securityManagerPage = new securityManager(fixture.page)
     await securityManagerPage.navigateToLoginPage();
@@ -40,7 +41,7 @@ When('Click on a test panel', async function () {
     await securityManagerPage.clickFirstPanel()
 });
 
-When('Create new row and add details', async function () {
+When('Create new row and add details or udate existing details', async function () {
     await securityManagerPage.addBlankrows()
     await fixture.page.waitForLoadState();
     fixture.logger.info("Waiting for 2 seconds")

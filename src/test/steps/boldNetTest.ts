@@ -15,7 +15,7 @@ Given('User navigates to the BoldNet application', async function () {
     fixture.logger.info("Navigated to the application")
     await fixture.page.waitForLoadState();
     fixture.logger.info("Waiting for 2 seconds")
-    await fixture.page.waitForTimeout(2000);
+    await fixture.page.waitForTimeout(5000);
 })
 
 Given('User enter the username in BoldNet', async function () {
@@ -77,25 +77,6 @@ When('Delete an account containing the text Code To Assign 041', async function 
       }
 });
 
-// When('Click on delete button', async function () {
-//     await boldNetPage.clickOnDeleteButton()
-// });
-
-// When('Click on okay button', async function () {
-//     await boldNetPage.clickOnOkayButton()
-// });
-
-// When('Click On save button on the top', async function () {
-//     await boldNetPage.clickOnSaveButton()
-// });
-
-// When('Confirm customer comment pop up', async function () {
-//     await boldNetPage.clickOnOKAYButton()
-//     await fixture.page.waitForLoadState();
-//     fixture.logger.info("Waiting for 2 seconds")
-//     await fixture.page.waitForTimeout(5000);
-
-// });
 
 When('Verify new contact is created in BoldNet', async function () {
     const IsVisible = await boldNetPage.VerifynewContact()
@@ -106,5 +87,8 @@ When('Verify new contact is created in BoldNet', async function () {
     } else {
       throw new Error("No record created");
     }
+    await fixture.page.waitForLoadState();
+    fixture.logger.info("Waiting for 5 seconds")
+    await fixture.page.waitForTimeout(5000);
      
 });

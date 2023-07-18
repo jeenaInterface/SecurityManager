@@ -1,12 +1,19 @@
 import { expect, Page } from "@playwright/test";
 import PlaywrightWrapper from "../helper/wrapper/PlaywrightWrappers";
+import interactiveLiteSearch from "../pages/interactiveLitSearch";
 
+let interactiveLiteSearchPage: interactiveLiteSearch;
 
 export default class Oracle {
     private base: PlaywrightWrapper
+
     constructor(private page: Page) {
+
         this.base = new PlaywrightWrapper(page);
+        interactiveLiteSearchPage = new interactiveLiteSearch(page)
+
     }
+
 
     private Elements = {
         userName: "input[id='userid']",
@@ -29,8 +36,9 @@ export default class Oracle {
         serviceRequestIcon: "//*[@id='itemNode_service_service_requests']",
         Listddl: "//input[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAt1:0:pt1:ls1:slctChoice::content']",
         HomeIcon: "//div//div//a[@title='Home']",
-        AllOpenServiceRequests: "//*[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAt1:0:pt1:ls1:slctChoice::pop']/li[7]"
-
+        AllOpenServiceRequests: "//*[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAt1:0:pt1:ls1:slctChoice::pop']/li[7]",
+        searchReferanceNumber: "//input[@placeholder='Reference Number']",
+        tableEntry: "(//td[@class='xen'])[2]"
 
     }
 
@@ -113,7 +121,7 @@ export default class Oracle {
         const FirstCreatedDate = await this.page.locator(this.Elements.date_reported);
         const innertext = await FirstCreatedDate.innerText();
         return innertext
-    } 
+    }
     async clickServiceRequestIcon() {
         await this.base.waitAndClick(this.Elements.HomeIcon);
         await this.base.waitAndClick(this.Elements.serviceRequestIcon);
@@ -124,11 +132,19 @@ export default class Oracle {
 
     }
 
-    async VerifySr(){
+    async VerifySr() {
+        await this.base.waitAndClick(this.Elements.searchReferanceNumber)
+        const srNo = await interactiveLiteSearchPage.returnSRNo()
+        await this.page.locator(this.Elements.searchReferanceNumber).fill(srNo);
+        await this.page.locator(this.Elements.searchReferanceNumber).click()
+        const SRinTable = this.page.locator(this.Elements.tableEntry);
+        const isSRVisible = await SRinTable.isVisible();
+        if (isSRVisible) {
+            console.log('SR is existing and visible in the table.');
+        } else {
+            console.log('SR is not existing or visible in the table.');
+        }
 
     }
-
-
-
 
 }

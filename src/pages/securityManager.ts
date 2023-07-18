@@ -15,7 +15,6 @@ export default class dgSecurity {
         userName: "//input[@id ='MainContent_LoginUser_UserName']",
         passwordInput: "//input[@id='MainContent_LoginUser_Password']",
         loginBtn: "//input[@id='MainContent_LoginUser_LoginButton']",
-        errorMessage: "alert",
         homeLink: "//a[text() ='Home']",
         firstPanel: "//a[text() ='Test Panel - AGB Account (AGB0010)']",
         addBlankrows: "//input[@title='Add Blank Rows based on selected count']",
@@ -25,7 +24,8 @@ export default class dgSecurity {
         HomePhone: "//div[@id='contHometb38']//input[1]",
         passcode: "//div[@id='contPasscodetb38']//input[1]",
         updateButton: "//input[@value='Update Contacts']",
-        successMessage: "Contacts update successful. Please allow 2 business days for passcode changes to be applied to your system."
+        successMessage: "Contacts update successful. Please allow 2 business days for passcode changes to be applied to your system.",
+        errorMessage: "Sorry, requested rows could not be added as the maximum contacts in this panel is restricted to 40."
 
     }
 
@@ -61,18 +61,31 @@ export default class dgSecurity {
     }
 
     async addBlankrows() {
+
         await this.page.locator(this.Elements.addBlankrows).click();
         await this.page.locator(this.Elements.yesProceedButton).click();
         await fixture.page.waitForLoadState();
         fixture.logger.info("Waiting for 5 seconds")
         await fixture.page.waitForTimeout(5000);
-        await this.page.locator(this.Elements.CodeToAssign041Edit).check();
-        await this.page.locator(this.Elements.phoneTextbox).fill("2505550199")
-        await this.page.locator(this.Elements.HomePhone).fill("2505550199")
-        await this.page.locator(this.Elements.passcode).fill(randomValuePasscode.toString())
-        await fixture.page.waitForLoadState();
-        fixture.logger.info("Waiting for 2 seconds")
-        await fixture.page.waitForTimeout(2000);
+        const errorMessage = this.Elements.errorMessage;
+        if (errorMessage !== undefined) {
+            await this.page.locator(this.Elements.CodeToAssign041Edit).check();
+            await this.page.locator(this.Elements.phoneTextbox).fill("2505550199")
+            await this.page.locator(this.Elements.HomePhone).fill("2505550199")
+            await this.page.locator(this.Elements.passcode).fill(randomValuePasscode.toString())
+            await fixture.page.waitForLoadState();
+            fixture.logger.info("Waiting for 2 seconds")
+            await fixture.page.waitForTimeout(2000);
+        } else {
+            await this.page.locator(this.Elements.CodeToAssign041Edit).check();
+            await this.page.locator(this.Elements.phoneTextbox).fill("2505550199")
+            await this.page.locator(this.Elements.HomePhone).fill("2505550199")
+            await this.page.locator(this.Elements.passcode).fill(randomValuePasscode.toString())
+            await fixture.page.waitForLoadState();
+            fixture.logger.info("Waiting for 2 seconds")
+            await fixture.page.waitForTimeout(2000);
+        }
+
     }
 
     async clickupdateButton() {
@@ -84,6 +97,5 @@ export default class dgSecurity {
         const innertext = await SuccessMessage.innerText();
         return innertext
     }
-
 
 }

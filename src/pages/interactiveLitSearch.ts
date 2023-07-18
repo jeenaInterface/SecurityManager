@@ -23,7 +23,9 @@ export default class interactiveLiteSearch {
         passcode_textbox: "//input[@id='passcode']",
         save_changes_button: "//input[@id='submitEdit']",
         submit_case: "//a[text()='Submit Case ']",
-        submission_message: "//div[@id = 'SubmitCaseMsgDiv']"
+        submission_message: "//div[@id = 'SubmitCaseMsgDiv']",
+        SRnO: "//div[@id='SubmitCaseMsgDiv']"
+
     }
     async clickInteractiveSearchLink() {
         await this.base.waitAndClick(this.Elements.interactiveSearchTab);
@@ -31,7 +33,7 @@ export default class interactiveLiteSearch {
 
     async clickOnSearchBox() {
         await this.page.locator(this.Elements.search_textbox).click();
-        await this.page.locator(this.Elements.search_textbox).fill("DOLLAR GENERAL DG00851")
+        await this.page.locator(this.Elements.search_textbox).fill("IAN30528 ")
         await this.page.locator(this.Elements.search_textbox).click();
         await this.page.locator(this.Elements.first_search_result).click();
     }
@@ -42,8 +44,7 @@ export default class interactiveLiteSearch {
         await this.page.locator(this.Elements.panel_checkbox).check();
         await this.page.locator(this.Elements.contact_checkbox).check();
         await this.page.locator(this.Elements.name_textbox).fill("Test user");
-        await this.page.locator(this.Elements.title_textbox).click();
-        await this.page.locator(this.Elements.title_textbox).fill("ASST MGR");
+        await this.page.locator(this.Elements.title_textbox).fill("Test Position");
         await this.page.locator(this.Elements.passcode_textbox).fill(randomValuePasscode.toString());
         await this.page.locator(this.Elements.phone_textbox).fill(randomValuePhone.toString());
         await this.page.locator(this.Elements.save_changes_button).click();
@@ -60,6 +61,14 @@ export default class interactiveLiteSearch {
         return innertext
     }
 
-    
+    async returnSRNo() {
+        const SRNo = await this.page.locator(this.Elements.SRnO);
+        const innertext = await SRNo.innerText();
+        // const innertext ="Case Submitted Successfully. Case #: SR01213494"
+        const match = innertext.match(/Case #: ([A-Z0-9]+)/);
+        const caseNumber = match ? match[1] : null;
+        return caseNumber;
 
+    }
+ 
 }

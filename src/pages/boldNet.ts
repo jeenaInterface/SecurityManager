@@ -94,6 +94,11 @@ async clickOnOKAYButton() {
 
 async VerifynewContact()
 {
+    await fixture.page.waitForLoadState();
+    fixture.logger.info("Waiting for 2 seconds")
+    await fixture.page.waitForTimeout(5000);
+    await this.base.waitAndClick(this.Elements.searchOnContact)
+    await this.page.locator(this.Elements.searchOnContact).fill("41");
     const visibleParameter = await this.page.locator(this.Elements.CodeToAssign41).isVisible();
     return visibleParameter !== null;
 }
