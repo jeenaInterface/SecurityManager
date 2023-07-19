@@ -38,7 +38,8 @@ export default class Oracle {
         HomeIcon: "//div//div//a[@title='Home']",
         AllOpenServiceRequests: "//*[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAt1:0:pt1:ls1:slctChoice::pop']/li[7]",
         searchReferanceNumber: "//input[@placeholder='Reference Number']",
-        tableEntry: "(//td[@class='xen'])[2]"
+        tableEntry: "(//td[@class='xen'])[2]",
+        findbutton:"//button[@title='Find']//img[1]"
 
     }
 
@@ -133,18 +134,22 @@ export default class Oracle {
     }
 
     async VerifySr() {
-        await this.base.waitAndClick(this.Elements.searchReferanceNumber)
-        const srNo = await interactiveLiteSearchPage.returnSRNo()
-        await this.page.locator(this.Elements.searchReferanceNumber).fill(srNo);
-        await this.page.locator(this.Elements.searchReferanceNumber).click()
-        const SRinTable = this.page.locator(this.Elements.tableEntry);
-        const isSRVisible = await SRinTable.isVisible();
-        if (isSRVisible) {
-            console.log('SR is existing and visible in the table.');
-        } else {
-            console.log('SR is not existing or visible in the table.');
+
+            await this.base.waitAndClick(this.Elements.searchReferanceNumber)
+            const srNo1 = await interactiveLiteSearchPage.returnMessage()
+            console.log(srNo1)
+            const srNo = await interactiveLiteSearchPage.returnSRNo()
+            await this.base.waitAndClick(this.Elements.searchReferanceNumber)
+            await this.page.locator(this.Elements.searchReferanceNumber).fill(srNo);
+            await this.page.locator(this.Elements.findbutton).click()
+            const SRinTable = this.page.locator(this.Elements.tableEntry);
+            const isSRVisible = await SRinTable.isVisible();
+            if (isSRVisible) {
+                console.log('SR is existing and visible in the table.');
+            } else {
+                console.log('SR is not existing or visible in the table.');
+            }
         }
 
-    }
+        }
 
-}
