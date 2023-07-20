@@ -1,16 +1,16 @@
 import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber";
 
 import { fixture } from "../../hooks/pageFixture";
-import securityManager from "../../pages/securityManager";
+import SecurityManager from "../../pages/securityManager";
 import * as data from "../../helper/util/test-data/loginCredentials.json"
 
 
 setDefaultTimeout(60 * 1000 * 5)
-let securityManagerPage: securityManager
+let securityManagerPage: SecurityManager
 
 
 Given('User navigates to the security application', async function () {
-    securityManagerPage = new securityManager(fixture.page)
+    securityManagerPage = new SecurityManager(fixture.page)
     await securityManagerPage.navigateToLoginPage();
     fixture.logger.info("Navigated to the application")
 })

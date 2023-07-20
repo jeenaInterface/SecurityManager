@@ -24,7 +24,7 @@ Feature: Verify if the contact update feature functions correctly when the APM c
     When Click on APM checkbox
     When Click on Save
     
-@APMEnabled
+@APMEnabled1
   Scenario: Update an account in Security Manager
     When User navigates to the security application
     Given User enter the username in security Manager
@@ -36,7 +36,7 @@ Feature: Verify if the contact update feature functions correctly when the APM c
     When Click on contact button
     When Verify success message
 
-@APMEnabled1
+@APMEnabled
     Scenario: Verify new contact is created in BoldNet
     When User navigates to the BoldNet application
     When User enter the username in BoldNet
