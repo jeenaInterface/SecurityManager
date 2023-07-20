@@ -117,6 +117,6 @@ When('Select All Open Service Requests from the list', async function () {
 });
 
 When('Verify SR is created after submit Interactive Lite search', async function () {
-    await oraclePage.VerifySr()
+    await oraclePage.checklatestvalue()
 
 });

@@ -39,7 +39,9 @@ export default class Oracle {
         AllOpenServiceRequests: "//*[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAt1:0:pt1:ls1:slctChoice::pop']/li[7]",
         searchReferanceNumber: "//input[@placeholder='Reference Number']",
         tableEntry: "(//td[@class='xen'])[2]",
-        findbutton:"//button[@title='Find']//img[1]"
+        findbutton:"//button[@title='Find']//img[1]",
+        ISSAccountNumber: "(//span[@class='x25'])[1]",
+        dateReorted:"//table[contains(@class,'x1he x1i2')]/tbody[1]/tr[1]/td[10]/span[1]"
 
     }
 
@@ -150,6 +152,32 @@ export default class Oracle {
                 console.log('SR is not existing or visible in the table.');
             }
         }
+        async checklatestvalue()
+        {
+            const issNumber = await this.page.locator(this.Elements.ISSAccountNumber)
+            const innertextISSNumber = await issNumber.innerText();
+            const originalAccountNumber = "SBH00351"
+
+            const latestDate =  await this.page.locator(this.Elements.dateReorted)
+            const innertextDate = await latestDate.innerText();
+
+            const currentDate = new Date();
+            const currentDateFormat = currentDate.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            console.log('currentDateFormat:', currentDateFormat); // Check the value of currentDateFormat
+        
+            const innertextDateNew = new Date(innertextDate);
+            const formattedCreatedDate = innertextDateNew.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            console.log('formattedCreatedDate:', formattedCreatedDate); // Check the value of formattedCreatedDate  
+        
+            if (currentDateFormat === formattedCreatedDate && innertextISSNumber == originalAccountNumber) {
+                console.log("SR is created in oracle");
+            } else {
+                throw new Error("No records created");
+            }
+        
+
+        }
+
 
         }
 

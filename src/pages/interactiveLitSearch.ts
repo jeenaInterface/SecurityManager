@@ -24,7 +24,7 @@ export default class interactiveLiteSearch {
         passcode_textbox: "//input[@id='passcode']",
         save_changes_button: "//input[@id='submitEdit']",
         submit_case: "//a[text()='Submit Case ']",
-        submission_message: "//div[@class='small-8 columns']",
+        submission_message: "//div[@id='SubmitCaseMsgDiv']",
         errorMessage:"There was a problem submitting your case. If you continue to receive this message please contact Interface Security Systems to make any changes.",
         permissionErrorMessage:"You do not have permission to access this option."
 
